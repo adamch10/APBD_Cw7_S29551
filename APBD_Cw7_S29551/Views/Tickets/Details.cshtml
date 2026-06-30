@@ -1,0 +1,57 @@
+﻿@model Ticket
+
+@{
+    ViewData["Title"] = "Szczegóły zgłoszenia";
+}
+
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Zgłoszenie #@Model.Id: @Model.Title</h4>
+        <div>
+            @if (Model.Status == TicketStatus.Open)
+            {
+                <span class="badge bg-success fs-6">Status: Otwarty</span>
+            }
+            else
+            {
+                <span class="badge bg-secondary fs-6">Status: Zamknięty</span>
+            }
+        </div>
+    </div>
+    <div class="card-body">
+        <p><strong>Utworzono:</strong> @Model.CreatedAt.ToString("g")</p>
+        <p><strong>Opis:</strong></p>
+        <p>@(string.IsNullOrWhiteSpace(Model.Description) ? "Brak opisu" : Model.Description)</p>
+    </div>
+    <div class="card-footer">
+        @if (Model.Status == TicketStatus.Open)
+        {
+            <form asp-action="Close" asp-route-id="@Model.Id" method="post" class="d-inline">
+                <button type="submit" class="btn btn-danger">Zamknij zgłoszenie</button>
+            </form>
+        }
+        <a asp-action="Index" class="btn btn-secondary">Powrót do listy</a>
+    </div>
+</div>
+
+<h4>Komentarze</h4>
+<hr />
+
+@if (Model.Comments != null && Model.Comments.Any())
+{
+    foreach (var comment in Model.Comments.OrderBy(c => c.CreatedAt))
+    {
+        <div class="card mb-3 shadow-sm">
+            <div class="card-header bg-light">
+                <strong>@comment.Author</strong> <span class="text-muted fs-6">@comment.CreatedAt.ToString("g")</span>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">@comment.Content</p>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>Brak komentarzy.</p>
+}

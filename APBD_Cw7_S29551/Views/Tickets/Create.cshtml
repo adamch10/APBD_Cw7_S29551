@@ -1,0 +1,44 @@
+﻿@model CreateTicketViewModel
+
+@{
+    ViewData["Title"] = "Nowe zgłoszenie";
+}
+
+<h2>Utwórz nowe zgłoszenie</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label">Tytuł</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Opis (opcjonalnie)</label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            
+            <h5 class="mt-4">Pierwszy komentarz</h5>
+            <div class="mb-3">
+                <label asp-for="Author" class="form-label">Autor</label>
+                <input asp-for="Author" class="form-control" />
+                <span asp-validation-for="Author" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="InitialComment" class="form-label">Treść komentarza</label>
+                <textarea asp-for="InitialComment" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="InitialComment" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Zapisz zgłoszenie</button>
+            <a asp-action="Index" class="btn btn-secondary ms-2">Anuluj</a>
+        </form>
+    </div>
+</div>
