@@ -1,5 +1,5 @@
 ## Jak uruchomić aplikację
-1. Przejdź do folderu z głównym projektem.
+1. Otwórz terminal w folderze projektu.
 2. Wygeneruj bazę danych i tabele:  `dotnet ef database update`
 3.  `dotnet run`
 
